@@ -1,0 +1,36 @@
+[package]
+name = "ciphertranslocal"
+version = "1.0.1"
+description = "Multi-platform LAN file transfer tool"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "ciphertranslocal_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0.0-beta", features = [] }
+
+[dependencies]
+tauri = { version = "2.0.0-beta", features = ["image-png", "tray-icon"] }
+tauri-plugin-shell = "2.0.0-beta"
+tauri-plugin-dialog = "2.0.0-beta"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.7", features = ["io"] }
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+anyhow = "1"
+thiserror = "1"
+local-ip-address = "0.6"
+gethostname = "0.4"
+dirs = "5"
+sqlite = "0.36"
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "rustls-tls"] }
+bytes = "1"
+tokio-stream = "0.1"
+sha2 = "0.10"
+base64 = "0.22"
+socket2 = { version = "0.5", features = ["all"] }

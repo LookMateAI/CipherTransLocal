@@ -1,0 +1,82 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+build/
+*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Rust
+target/
+**/*.rs.bk
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/android/.tauri/
+src-tauri/gen/android/.gradle/
+src-tauri/gen/android/build/
+src-tauri/gen/android/app/build/
+src-tauri/gen/android/app/.cxx/
+src-tauri/gen/android/app/.externalNativeBuild/
+src-tauri/gen/android/app/src/main/assets/tauri.conf.json
+src-tauri/gen/android/app/src/main/jniLibs/**/*.so
+.gradle-home/
+.test-artifacts/
+
+# Gradle / Android local cache
+.gradle/
+**/.gradle/
+**/local.properties
+**/.cxx/
+**/.externalNativeBuild/
+**/captures/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Android signing
+*.jks
+*.keystore
+**/*.jks
+**/*.keystore
+**/keystore.properties
+**/key.properties
+**/release-signing.properties
+src-tauri/gen/android/app/build/outputs/apk/**/*-aligned.apk
+src-tauri/gen/android/app/build/outputs/apk/**/*-signed.apk
+
+# Local verification artifacts
+/.android/
+/ciphertranslocal-*.png
+/android-*.png
+/app-*.png
+/adb-*.png
+/adb-*.xml
+/adb-*.json
+/adb-*.txt
+/android-current-screen.png
+/window.xml
+/probe-payload.txt
+/xigai.txt
