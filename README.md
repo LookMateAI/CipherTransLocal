@@ -1,15 +1,40 @@
-# CipherTransLocal
+<p align="center">
+  <img src="public/ciphertranslocal.svg" width="96" alt="CipherTransLocal Logo" />
+</p>
 
-> 一款面向 Windows 和 Android 的局域网传输工具。  
-> 不用登录账号，不用把文件传到云端，只要设备在同一个局域网里，就可以像聊天一样发送文字、图片和文件。
+<h1 align="center">CipherTransLocal</h1>
+
+<p align="center">
+  一款面向 Windows 和 Android 的局域网传输工具。不用登录账号，不用把文件传到云端，只要设备在同一个局域网里，就可以像聊天一样发送文字、图片和文件。
+</p>
+
+<p align="center">
+  <a href="https://github.com/LookMateAI/CipherTransLocal/releases/latest">下载最新版</a>
+  ·
+  <a href="#主要卖点">主要卖点</a>
+  ·
+  <a href="#从源码运行">从源码运行</a>
+</p>
 
 当前版本：`v1.0.1`
+
+## 下载安装
+
+请到 [GitHub Releases](https://github.com/LookMateAI/CipherTransLocal/releases/latest) 下载适合你设备的安装包。
+
+| 平台 | 推荐文件 | 说明 |
+| --- | --- | --- |
+| Windows | `CipherTransLocal_1.0.1_x64-setup.exe` | 推荐普通用户使用，双击安装即可 |
+| Windows | `CipherTransLocal_1.0.1_x64_en-US.msi` | 适合需要 MSI 包的管理或部署场景 |
+| Android | `CipherTransLocal_1.0.1_android_universal.apk` | 下载到手机后安装，首次使用需允许必要权限 |
 
 ## 它解决什么问题
 
 很多时候，我们只是想把手机里的照片发到电脑，或者把电脑上的安装包、文档、压缩包传到手机。用数据线麻烦，用聊天软件会压缩图片，传大文件还可能慢、断、占云端空间。
 
 CipherTransLocal 的目标很简单：让同一局域网里的设备可以直接互传。打开软件，看到设备，拖文件或选择文件发送。传输记录像聊天消息一样保留下来，之后也能回头找。
+
+它更适合那些“不想折腾，只想把文件发过去”的场景：手机和电脑在同一个 Wi-Fi 下，打开应用，选择设备，直接发送。
 
 ## 主要卖点
 
