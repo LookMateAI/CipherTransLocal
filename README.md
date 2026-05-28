@@ -2,10 +2,10 @@
   <img src="public/ciphertranslocal.svg" width="96" alt="CipherTransLocal Logo" />
 </p>
 
-<h1 align="center">CipherTransLocal</h1>
+<h1 align="center">局域网里，消息和文件都能直接传</h1>
 
 <p align="center">
-  电脑和 Android 手机之间传文件，不用登录账号，不用经过网盘，也不用把文件先发到聊天软件里。
+  <strong>CipherTransLocal</strong> 让 Windows 电脑和 Android 手机在同一个 Wi-Fi 下互相发送文字、图片和文件。不用登录账号，不用经过网盘，也不用把文件先发到聊天软件里。
 </p>
 
 <p align="center">
