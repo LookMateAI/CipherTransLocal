@@ -1,0 +1,1301 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CipherTransLocal - Windows / Android 局域网文件传输</title>
+    <meta
+      name="description"
+      content="CipherTransLocal 是一个 Windows 和 Android 局域网消息、图片、文件直传工具。不用登录账号，不经过网盘，也不用通过聊天软件中转。"
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <style>
+      :root {
+        --ink: #101827;
+        --muted: #65748a;
+        --line: #d9e2ec;
+        --paper: #f7f9fb;
+        --white: #ffffff;
+        --blue: #0ea5e9;
+        --blue-dark: #075985;
+        --mint: #10b981;
+        --amber: #f59e0b;
+        --shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+          linear-gradient(180deg, #f8fbff 0%, #eef4f8 52%, #f8fafc 100%);
+        background-size: 42px 42px, 42px 42px, auto;
+        font-family:
+          "HarmonyOS Sans SC",
+          "Microsoft YaHei",
+          "PingFang SC",
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .nav {
+        position: fixed;
+        z-index: 20;
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 10px 12px 10px 14px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .brand svg {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 auto;
+      }
+
+      .brand span {
+        white-space: nowrap;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .nav-links a {
+        border-radius: var(--radius);
+        padding: 8px 10px;
+        transition:
+          background 180ms ease,
+          color 180ms ease;
+      }
+
+      .nav-links a:hover {
+        background: #edf6fb;
+        color: var(--blue-dark);
+      }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 38px;
+        border-radius: var(--radius);
+        background: #0f172a;
+        color: white;
+        padding: 8px 13px;
+        font-size: 14px;
+        font-weight: 800;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+        transition:
+          transform 180ms ease,
+          background 180ms ease;
+      }
+
+      .nav-cta:hover {
+        transform: translateY(-1px);
+        background: #1e293b;
+      }
+
+      .hero {
+        position: relative;
+        min-height: min(820px, 88vh);
+        padding: 148px 20px 84px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: block;
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+
+      .hero-inner > div:first-child {
+        position: relative;
+        z-index: 3;
+        max-width: 680px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        margin-bottom: 18px;
+        border: 1px solid rgba(14, 165, 233, 0.22);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: #0369a1;
+        padding: 7px 11px;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .pulse {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: var(--mint);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.13);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 680px;
+        color: #0b1220;
+        font-size: clamp(44px, 7vw, 88px);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 580px;
+        margin: 24px 0 0;
+        color: #4b5f76;
+        font-size: clamp(17px, 2vw, 21px);
+        line-height: 1.85;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        border-radius: var(--radius);
+        padding: 12px 17px;
+        font-weight: 850;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .btn.primary {
+        background: #0f172a;
+        color: white;
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.22);
+      }
+
+      .btn.primary:hover {
+        transform: translateY(-2px);
+        background: #1e293b;
+      }
+
+      .btn.secondary {
+        border: 1px solid rgba(148, 163, 184, 0.45);
+        background: rgba(255, 255, 255, 0.78);
+        color: #172033;
+      }
+
+      .btn.secondary:hover {
+        transform: translateY(-2px);
+        border-color: rgba(14, 165, 233, 0.38);
+        box-shadow: 0 16px 34px rgba(15, 23, 42, 0.11);
+      }
+
+      .hero-notes {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        max-width: 600px;
+        margin-top: 32px;
+      }
+
+      .note {
+        min-height: 86px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.7);
+        padding: 13px;
+      }
+
+      .note strong {
+        display: block;
+        color: #0f172a;
+        font-size: 16px;
+      }
+
+      .note span {
+        display: block;
+        margin-top: 4px;
+        color: #64748b;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .device-stage {
+        position: absolute;
+        z-index: 1;
+        top: -52px;
+        right: -86px;
+        width: 690px;
+        height: 640px;
+        min-height: 0;
+        pointer-events: none;
+      }
+
+      .beam {
+        position: absolute;
+        top: 218px;
+        left: 90px;
+        right: 70px;
+        height: 112px;
+        border: 1px solid rgba(14, 165, 233, 0.22);
+        border-left: 0;
+        border-right: 0;
+        background:
+          linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.12), rgba(16, 185, 129, 0.12), transparent),
+          repeating-linear-gradient(90deg, transparent 0 18px, rgba(14, 165, 233, 0.1) 18px 20px);
+        transform: rotate(-6deg);
+        filter: blur(0.2px);
+      }
+
+      .packet {
+        position: absolute;
+        width: 78px;
+        height: 36px;
+        border-radius: 999px;
+        background: #ffffff;
+        box-shadow: 0 14px 34px rgba(14, 165, 233, 0.22);
+        color: #0f172a;
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 850;
+        animation: float 5.5s ease-in-out infinite;
+      }
+
+      .packet.one {
+        top: 190px;
+        left: 255px;
+      }
+
+      .packet.two {
+        top: 286px;
+        right: 155px;
+        animation-delay: -2s;
+      }
+
+      .desktop-window {
+        position: absolute;
+        top: 34px;
+        right: 0;
+        width: min(520px, 82vw);
+        border: 1px solid rgba(148, 163, 184, 0.26);
+        border-radius: var(--radius);
+        background: #ffffff;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .window-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e5edf5;
+        background: #f8fbfd;
+        padding: 12px 14px;
+      }
+
+      .dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .dots i {
+        width: 10px;
+        height: 10px;
+        border-radius: 99px;
+        background: #cbd5e1;
+      }
+
+      .window-label {
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .window-body {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        min-height: 320px;
+      }
+
+      .sidebar {
+        border-right: 1px solid #e5edf5;
+        background: #f8fbfd;
+        padding: 16px;
+      }
+
+      .device-pill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: var(--radius);
+        background: #0f172a;
+        color: white;
+        padding: 11px;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .device-pill .mini-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.13);
+        display: grid;
+        place-items: center;
+      }
+
+      .device-muted {
+        margin-top: 12px;
+        border-radius: var(--radius);
+        background: white;
+        color: #64748b;
+        padding: 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .chat {
+        padding: 18px;
+      }
+
+      .chat-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        color: #0f172a;
+        font-weight: 850;
+      }
+
+      .online {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #059669;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .bubble {
+        max-width: 82%;
+        margin-top: 12px;
+        border-radius: var(--radius);
+        padding: 12px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .bubble.left {
+        background: #f1f5f9;
+        color: #334155;
+      }
+
+      .bubble.right {
+        margin-left: auto;
+        background: #e0f2fe;
+        color: #075985;
+      }
+
+      .file-card {
+        margin-top: 14px;
+        border: 1px solid #dbeafe;
+        border-radius: var(--radius);
+        background: #f8fbff;
+        padding: 12px;
+      }
+
+      .file-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #0f172a;
+        font-size: 13px;
+        font-weight: 850;
+      }
+
+      .progress {
+        height: 8px;
+        margin-top: 12px;
+        border-radius: 999px;
+        background: #dbeafe;
+        overflow: hidden;
+      }
+
+      .progress span {
+        display: block;
+        width: 72%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--blue), var(--mint));
+      }
+
+      .file-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 9px;
+        color: #64748b;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .phone {
+        position: absolute;
+        left: 0;
+        bottom: 18px;
+        width: 250px;
+        border: 9px solid #0f172a;
+        border-radius: 34px;
+        background: #f8fafc;
+        box-shadow: 0 30px 70px rgba(15, 23, 42, 0.22);
+        overflow: hidden;
+      }
+
+      .phone-screen {
+        min-height: 444px;
+        padding: 20px 17px 16px;
+      }
+
+      .phone-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #0f172a;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .phone-device {
+        margin-top: 22px;
+        color: #0f172a;
+        font-size: 26px;
+        font-weight: 900;
+        line-height: 1.08;
+      }
+
+      .phone-card {
+        margin-top: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius);
+        background: white;
+        padding: 13px;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      }
+
+      .phone-card strong {
+        display: block;
+        font-size: 14px;
+      }
+
+      .phone-card span {
+        display: block;
+        margin-top: 4px;
+        color: #64748b;
+        font-size: 12px;
+      }
+
+      .phone-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid #e2e8f0;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .tab {
+        display: grid;
+        place-items: center;
+        gap: 3px;
+        height: 58px;
+        color: #64748b;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .tab.active {
+        color: #2563eb;
+        background: #eff6ff;
+      }
+
+      .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 86px 20px;
+      }
+
+      .section-kicker {
+        color: #0284c7;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        max-width: 720px;
+        margin: 10px 0 16px;
+        color: #0f172a;
+        font-size: clamp(32px, 4.2vw, 56px);
+        line-height: 1.05;
+        letter-spacing: 0;
+      }
+
+      .section-lead {
+        max-width: 720px;
+        margin: 0;
+        color: #5b6b7f;
+        font-size: 18px;
+        line-height: 1.85;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 34px;
+      }
+
+      .module {
+        min-height: 245px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.82);
+        padding: 22px;
+        box-shadow: 0 16px 38px rgba(15, 23, 42, 0.06);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .module:hover {
+        transform: translateY(-4px);
+        border-color: rgba(14, 165, 233, 0.34);
+        box-shadow: 0 22px 52px rgba(15, 23, 42, 0.12);
+      }
+
+      .module-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: var(--radius);
+        display: grid;
+        place-items: center;
+        background: #e0f2fe;
+        color: #0369a1;
+      }
+
+      .module-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .module h3 {
+        margin: 18px 0 9px;
+        color: #0f172a;
+        font-size: 21px;
+      }
+
+      .module p {
+        margin: 0;
+        color: #64748b;
+      }
+
+      .story {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 20px;
+        align-items: stretch;
+      }
+
+      .screenshots {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+        align-items: start;
+        margin-top: 34px;
+      }
+
+      .shot {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: #ffffff;
+        box-shadow: 0 18px 44px rgba(15, 23, 42, 0.1);
+      }
+
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .shot.large img {
+        max-height: 620px;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .shot-stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .shot-caption {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: var(--radius);
+        background: rgba(15, 23, 42, 0.78);
+        color: #ffffff;
+        padding: 12px 13px;
+        backdrop-filter: blur(12px);
+      }
+
+      .shot-caption strong {
+        display: block;
+        font-size: 15px;
+      }
+
+      .shot-caption span {
+        display: block;
+        margin-top: 3px;
+        color: #dbeafe;
+        font-size: 13px;
+      }
+
+      .story-panel {
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: #0f172a;
+        color: white;
+        padding: 30px;
+        box-shadow: var(--shadow);
+      }
+
+      .story-panel h2 {
+        margin: 0;
+        font-size: clamp(30px, 4vw, 50px);
+        line-height: 1.08;
+      }
+
+      .story-panel p {
+        margin: 18px 0 0;
+        color: #cbd5e1;
+        font-size: 17px;
+        line-height: 1.85;
+      }
+
+      .story-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .story-item {
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        gap: 14px;
+        align-items: start;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.82);
+        padding: 18px;
+      }
+
+      .num {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: var(--radius);
+        background: #e0f2fe;
+        color: #075985;
+        font-weight: 950;
+      }
+
+      .story-item h3 {
+        margin: 0 0 4px;
+        font-size: 19px;
+      }
+
+      .story-item p {
+        margin: 0;
+        color: #64748b;
+      }
+
+      .download {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin-top: 34px;
+      }
+
+      .download-card {
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background: #ffffff;
+        padding: 24px;
+        box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+      }
+
+      .download-card h3 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .download-card p {
+        margin: 10px 0 18px;
+        color: #64748b;
+      }
+
+      .download-card .btn {
+        width: 100%;
+      }
+
+      .github-band {
+        margin-top: 72px;
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(12, 44, 67, 0.94)),
+          #0f172a;
+        color: white;
+        padding: 34px;
+        box-shadow: var(--shadow);
+      }
+
+      .github-band h2 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 48px);
+        line-height: 1.1;
+      }
+
+      .github-band p {
+        max-width: 720px;
+        margin: 14px 0 24px;
+        color: #cbd5e1;
+      }
+
+      .footer {
+        border-top: 1px solid rgba(148, 163, 184, 0.25);
+        padding: 30px 20px 44px;
+        color: #64748b;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(12px, -10px, 0);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          min-height: 88vh;
+          padding-top: 124px;
+        }
+
+        .hero-inner,
+        .story,
+        .download,
+        .screenshots {
+          grid-template-columns: 1fr;
+        }
+
+        .device-stage {
+          top: 234px;
+          right: -178px;
+          width: 650px;
+          height: 610px;
+          opacity: 0.72;
+          transform: scale(0.82);
+          transform-origin: top right;
+        }
+
+        .module-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          left: 10px;
+          right: 10px;
+        }
+
+        .brand span {
+          max-width: 150px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .nav-cta {
+          min-height: 36px;
+          padding: 8px 10px;
+          font-size: 13px;
+        }
+
+        .hero {
+          min-height: 90vh;
+          padding: 112px 14px 42px;
+          align-items: flex-start;
+        }
+
+        .hero-notes {
+          display: none;
+        }
+
+        .module-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .device-stage {
+          top: 330px;
+          right: -256px;
+          width: 660px;
+          height: 620px;
+          opacity: 0.48;
+          transform: scale(0.58);
+        }
+
+        .desktop-window {
+          top: 0;
+          right: 0;
+          width: 520px;
+        }
+
+        .window-body {
+          grid-template-columns: 122px 1fr;
+        }
+
+        .sidebar {
+          padding: 12px;
+        }
+
+        .device-pill {
+          padding: 9px;
+          font-size: 12px;
+        }
+
+        .chat {
+          padding: 14px;
+        }
+
+        .phone {
+          left: 10px;
+          bottom: 0;
+          width: 215px;
+        }
+
+        .beam {
+          left: 50px;
+          right: 18px;
+          top: 292px;
+        }
+
+        .packet.one {
+          left: 168px;
+          top: 270px;
+        }
+
+        .packet.two {
+          right: 20px;
+          top: 350px;
+        }
+
+        .section {
+          padding: 60px 14px;
+        }
+
+        .github-band {
+          padding: 24px;
+        }
+
+        .shot.large img {
+          max-height: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav class="nav" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="CipherTransLocal 首页">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="12" fill="#111827" />
+            <path d="M32 14.5H21.5C16.3 14.5 12 18.8 12 24s4.3 9.5 9.5 9.5H32" fill="none" stroke="#F8FAFC" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M21.5 24H35" fill="none" stroke="#38BDF8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M31 20.5 34.5 24 31 27.5" fill="none" stroke="#38BDF8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="1" y="1" width="46" height="46" rx="11" fill="none" stroke="#FFFFFF" stroke-opacity="0.1" />
+          </svg>
+          <span>CipherTransLocal</span>
+        </a>
+        <div class="nav-links">
+          <a href="#modules">功能模块</a>
+          <a href="#flow">怎么用</a>
+          <a href="#download">下载</a>
+        </div>
+        <a class="nav-cta" href="https://github.com/LookMateAI/CipherTransLocal" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      </nav>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-inner">
+            <div>
+              <div class="eyebrow"><span class="pulse"></span> Windows / Android 局域网直传</div>
+              <h1>消息和文件，不用绕路。</h1>
+              <p class="hero-copy">
+                CipherTransLocal 让电脑和 Android 手机在同一个 Wi-Fi 下互相发送文字、图片和文件。
+                不登录账号，不经过网盘，也不用把私人文件先发到聊天软件里。
+              </p>
+              <div class="hero-actions">
+                <a class="btn primary" href="https://github.com/LookMateAI/CipherTransLocal/releases/latest" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  下载最新版
+                </a>
+                <a class="btn secondary" href="https://github.com/LookMateAI/CipherTransLocal" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 2.75a9.25 9.25 0 0 0-2.93 18.03c.46.08.63-.2.63-.45v-1.6c-2.57.56-3.11-1.1-3.11-1.1-.42-1.07-1.03-1.35-1.03-1.35-.84-.57.06-.56.06-.56.93.07 1.42.96 1.42.96.83 1.42 2.18 1.01 2.71.77.08-.6.32-1.01.58-1.24-2.05-.23-4.2-1.02-4.2-4.56 0-1 .36-1.83.95-2.47-.1-.23-.41-1.18.09-2.44 0 0 .78-.25 2.54.94a8.74 8.74 0 0 1 4.62 0c1.76-1.19 2.53-.94 2.53-.94.51 1.26.19 2.21.1 2.44.59.64.94 1.46.94 2.47 0 3.55-2.16 4.32-4.22 4.55.33.29.63.86.63 1.73v2.57c0 .25.16.53.64.44A9.25 9.25 0 0 0 12 2.75Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  查看源码
+                </a>
+              </div>
+              <div class="hero-notes" aria-label="核心特点">
+                <div class="note"><strong>局域网直连</strong><span>文件在设备之间传，不先上传云端。</span></div>
+                <div class="note"><strong>像聊天一样</strong><span>文字、图片、文件都留在同一个会话里。</span></div>
+                <div class="note"><strong>后台更稳</strong><span>Android 前台服务，桌面端托盘运行。</span></div>
+              </div>
+            </div>
+
+            <div class="device-stage" aria-label="产品界面示意">
+              <div class="beam"></div>
+              <div class="packet one">图片 8 张</div>
+              <div class="packet two">72 MB/s</div>
+
+              <div class="desktop-window">
+                <div class="window-top">
+                  <div class="dots"><i></i><i></i><i></i></div>
+                  <div class="window-label">Windows Desktop</div>
+                </div>
+                <div class="window-body">
+                  <aside class="sidebar">
+                    <div class="device-pill">
+                      <span class="mini-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M7 5h10a2 2 0 0 1 2 2v7H5V7a2 2 0 0 1 2-2Zm-2 13h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      小米手机
+                    </div>
+                    <div class="device-muted">办公室电脑</div>
+                    <div class="device-muted">历史设备</div>
+                  </aside>
+                  <div class="chat">
+                    <div class="chat-title">
+                      <span>和小米手机互传</span>
+                      <span class="online"><span class="pulse"></span> 在线</span>
+                    </div>
+                    <div class="bubble left">手机截图先发你，原图别被压缩。</div>
+                    <div class="bubble right">收到，我把 APK 和文档一起发过去。</div>
+                    <div class="file-card">
+                      <div class="file-head">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="#0ea5e9" stroke-width="2" stroke-linejoin="round" />
+                          <path d="M14 3v5h5" stroke="#0ea5e9" stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                        project-release.zip
+                      </div>
+                      <div class="progress"><span></span></div>
+                      <div class="file-meta"><span>正在发送</span><span>72%</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="phone">
+                <div class="phone-screen">
+                  <div class="phone-head"><span>16:37</span><span>87%</span></div>
+                  <div class="phone-device">设备中心</div>
+                  <div class="phone-card">
+                    <strong>Windows 桌面端</strong>
+                    <span>已发现，可以发送文件</span>
+                  </div>
+                  <div class="phone-card">
+                    <strong>接收位置</strong>
+                    <span>Download / CipherTransLocal</span>
+                  </div>
+                </div>
+                <div class="phone-bottom">
+                  <div class="tab active">设备</div>
+                  <div class="tab">历史</div>
+                  <div class="tab">设置</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="modules">
+          <div class="section-kicker">功能模块</div>
+          <h2 class="section-title">把常用传输动作放在最短路径里。</h2>
+          <p class="section-lead">
+            这不是网盘，也不是复杂同步工具。它只专心处理一件事：让你在 Windows 和 Android 之间更快、更稳地把内容发过去。
+          </p>
+
+          <div class="module-grid">
+            <article class="module">
+              <div class="module-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12.5a7 7 0 0 1 14 0M8.5 15.5a3.5 3.5 0 0 1 7 0M12 19h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <h3>局域网自动发现</h3>
+              <p>两端打开后自动寻找同一网络里的设备，不用手动输入 IP，也不用扫一堆配置项。</p>
+            </article>
+
+            <article class="module">
+              <div class="module-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 5h16v10H8l-4 4V5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3>消息、图片、文件一起传</h3>
+              <p>临时文字、截图、照片、APK、压缩包都在一个会话里，传完之后也能回头找。</p>
+            </article>
+
+            <article class="module">
+              <div class="module-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 20V4m0 16h14M8 16l3-4 3 2 4-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3>进度看得见</h3>
+              <p>大文件传输时能看到速度、进度和状态。卡没卡住，不用猜。</p>
+            </article>
+
+            <article class="module">
+              <div class="module-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 5v14m8-14v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <h3>暂停、继续、取消</h3>
+              <p>传错文件可以取消，网络不稳可以重试，传输控制不藏在复杂菜单里。</p>
+            </article>
+
+            <article class="module">
+              <div class="module-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 4h10v16H7V4Zm3 13h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3>Android 后台更稳</h3>
+              <p>传输时使用前台服务和 Wi-Fi 保活策略，减少退到后台后连接中断的情况。</p>
+            </article>
+
+            <article class="module">
+              <div class="module-icon">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M7 7V5h10v2m-9 4v7m4-7v7m4-7v7M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3>误删前会确认</h3>
+              <p>删除设备、历史记录这类动作会二次确认，避免手滑把重要记录清掉。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="screens">
+          <div class="section-kicker">真实界面</div>
+          <h2 class="section-title">不是概念图，是真的能拿来传。</h2>
+          <p class="section-lead">
+            桌面端负责稳定收发和后台运行，Android 端把设备、历史和设置做成手机上更顺手的结构。
+          </p>
+
+          <div class="screenshots">
+            <figure class="shot large">
+              <img src="assets/mobile-device-search.png" alt="CipherTransLocal Android 端正在搜索局域网设备的界面" loading="lazy" />
+              <figcaption class="shot-caption">
+                <strong>打开后自动找设备</strong>
+                <span>同一局域网里的 Windows 和 Android 设备会出现在设备中心。</span>
+              </figcaption>
+            </figure>
+            <div class="shot-stack">
+              <figure class="shot">
+                <img src="assets/mobile-history.png" alt="CipherTransLocal Android 端传输历史页面" loading="lazy" />
+                <figcaption class="shot-caption">
+                  <strong>传过什么能回头找</strong>
+                  <span>历史记录按时间保存，文件和文字不会散在别的应用里。</span>
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img src="assets/mobile-device-empty.png" alt="CipherTransLocal Android 端设备中心空状态界面" loading="lazy" />
+                <figcaption class="shot-caption">
+                  <strong>没有发现设备时也说清楚</strong>
+                  <span>网络隔离、不同 Wi-Fi、防火墙都可能影响局域网发现。</span>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="flow">
+          <div class="story">
+            <div class="story-panel">
+              <div class="section-kicker">怎么用</div>
+              <h2>打开两端，看到设备，直接发送。</h2>
+              <p>
+                它的使用方式尽量接近日常聊天：先选设备，再发消息或文件。你不需要记住 IP，也不需要登录账号。
+              </p>
+            </div>
+            <div class="story-list">
+              <article class="story-item">
+                <div class="num">1</div>
+                <div><h3>两台设备连同一个网络</h3><p>电脑和手机连接同一个 Wi-Fi，或者处在可互通的局域网里。</p></div>
+              </article>
+              <article class="story-item">
+                <div class="num">2</div>
+                <div><h3>打开 CipherTransLocal</h3><p>桌面端和 Android 端会互相广播并发现对方设备。</p></div>
+              </article>
+              <article class="story-item">
+                <div class="num">3</div>
+                <div><h3>像聊天一样发送</h3><p>发送文字、图片或文件，进度和结果都会留在对应设备的会话里。</p></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="download">
+          <div class="section-kicker">下载</div>
+          <h2 class="section-title">先装一端，再装另一端。</h2>
+          <p class="section-lead">
+            Windows 推荐下载安装包。Android 下载 APK 后按系统提示安装即可。所有文件都放在 GitHub Release 页面。
+          </p>
+
+          <div class="download">
+            <article class="download-card">
+              <h3>Windows 桌面端</h3>
+              <p>适合电脑收发文件、后台托盘运行、管理历史记录。</p>
+              <a class="btn primary" href="https://github.com/LookMateAI/CipherTransLocal/releases/latest" target="_blank" rel="noreferrer">下载 Windows 版本</a>
+            </article>
+            <article class="download-card">
+              <h3>Android 手机端</h3>
+              <p>适合手机发照片、收电脑文件、选择下载目录和相册保存。</p>
+              <a class="btn secondary" href="https://github.com/LookMateAI/CipherTransLocal/releases/latest" target="_blank" rel="noreferrer">下载 Android APK</a>
+            </article>
+          </div>
+
+          <div class="github-band">
+            <h2>想看源码、提建议或收藏项目？去 GitHub。</h2>
+            <p>
+              仓库里有源码、README、Release 安装包和后续计划。觉得这个工具有用，可以 star 一下，后续版本也会从那里发布。
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="https://github.com/LookMateAI/CipherTransLocal" target="_blank" rel="noreferrer">打开 GitHub 仓库</a>
+              <a class="btn secondary" href="https://github.com/LookMateAI/CipherTransLocal/releases/tag/v1.0.1" target="_blank" rel="noreferrer">查看 v1.0.1 Release</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        CipherTransLocal - LAN file transfer for Windows and Android.
+      </footer>
+    </div>
+  </body>
+</html>

@@ -13,6 +13,8 @@
 </p>
 
 <p align="center">
+  <a href="https://lookmateai.github.io/CipherTransLocal/">项目展示页</a>
+  ·
   <a href="https://github.com/LookMateAI/CipherTransLocal/releases/latest">下载最新版</a>
   ·
   <a href="#适合谁用">适合谁用</a>
