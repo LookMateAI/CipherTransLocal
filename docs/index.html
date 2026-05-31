@@ -448,9 +448,9 @@
 
       .desktop-ui {
         position: absolute;
-        top: 0;
+        top: 18px;
         right: 0;
-        width: 500px;
+        width: min(500px, 96%);
         border: 1px solid rgba(246, 251, 255, 0.16);
         border-radius: var(--radius);
         background: rgba(248, 251, 253, 0.96);
@@ -623,11 +623,11 @@
 
       .phone-shot {
         position: absolute;
-        left: 18px;
-        bottom: 0;
-        width: 238px;
-        border: 9px solid var(--deep);
-        border-radius: 30px;
+        left: 10px;
+        bottom: 36px;
+        width: 190px;
+        border: 7px solid var(--deep);
+        border-radius: 26px;
         background: var(--deep);
         box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
         overflow: hidden;
@@ -636,7 +636,7 @@
       .phone-shot img {
         width: 100%;
         height: auto;
-        border-radius: 20px;
+        border-radius: 18px;
       }
 
       .phone-chip {
@@ -1067,7 +1067,10 @@
 
       @media (max-width: 1100px) {
         .hero-inner {
-          grid-template-columns: minmax(0, 1fr) minmax(420px, 0.82fr);
+          grid-template-columns: 1fr;
+          align-items: start;
+          padding-top: 118px;
+          padding-bottom: 48px;
         }
 
         h1 {
@@ -1075,8 +1078,7 @@
         }
 
         .hero-art {
-          width: 560px;
-          height: 520px;
+          display: none;
         }
 
         .feature-grid {
@@ -1098,7 +1100,6 @@
         }
 
         .hero-inner {
-          grid-template-columns: 1fr;
           align-items: start;
           padding-top: 118px;
           padding-bottom: 48px;
