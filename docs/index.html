@@ -8,7 +8,7 @@
       name="description"
       content="CipherTransLocal 是一个面向 Windows 和 Android 的局域网直传工具，可以在同一网络下发送文字、图片和文件，不需要登录账号，也不经过网盘中转。"
     />
-    <meta name="theme-color" content="#111713" />
+    <meta name="theme-color" content="#0b1117" />
     <meta property="og:title" content="CipherTransLocal - 局域网文件直传" />
     <meta
       property="og:description"
@@ -19,21 +19,20 @@
       @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap");
 
       :root {
-        --ink: #111713;
-        --ink-soft: #29362d;
-        --muted: #617069;
-        --line: #d6ded5;
-        --paper: #f2f5ee;
-        --paper-strong: #fbfcf7;
+        --ink: #0b1117;
+        --ink-soft: #24323d;
+        --muted: #657581;
+        --line: #d8e2e8;
+        --paper: #eef3f7;
+        --paper-strong: #f8fbfd;
         --white: #ffffff;
-        --signal: #67e08f;
-        --cyan: #29c7d8;
-        --amber: #f2b84b;
-        --coral: #ff6b5f;
-        --deep: #101815;
-        --deep-2: #17231f;
+        --signal: #5ee59a;
+        --cyan: #31c7e0;
+        --blue: #75a7ff;
+        --deep: #0b1117;
+        --deep-2: #121c24;
         --radius: 8px;
-        --shadow: 0 28px 80px rgba(17, 23, 19, 0.18);
+        --shadow: 0 28px 80px rgba(6, 14, 20, 0.18);
         --max: 1180px;
       }
 
@@ -49,10 +48,10 @@
         margin: 0;
         color: var(--ink);
         background:
-          linear-gradient(90deg, rgba(17, 23, 19, 0.045) 1px, transparent 1px),
-          linear-gradient(180deg, rgba(17, 23, 19, 0.04) 1px, transparent 1px),
-          var(--paper);
-        background-size: 48px 48px, 48px 48px, auto;
+          linear-gradient(90deg, rgba(13, 27, 36, 0.045) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(13, 27, 36, 0.04) 1px, transparent 1px),
+          linear-gradient(180deg, #f8fbfd 0%, var(--paper) 44%, #f6f9fc 100%);
+        background-size: 52px 52px, 52px 52px, auto;
         font-family:
           "Noto Sans SC",
           "HarmonyOS Sans SC",
@@ -89,11 +88,11 @@
         gap: 16px;
         max-width: var(--max);
         margin: 0 auto;
-        border: 1px solid rgba(251, 252, 247, 0.14);
+        border: 1px solid rgba(246, 251, 255, 0.14);
         border-radius: var(--radius);
-        background: rgba(16, 24, 21, 0.78);
+        background: rgba(11, 17, 23, 0.78);
         padding: 10px 12px;
-        color: #f8fbf2;
+        color: #f6fbff;
         box-shadow: 0 16px 50px rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(18px);
       }
@@ -125,7 +124,7 @@
         display: flex;
         align-items: center;
         gap: 4px;
-        color: rgba(248, 251, 242, 0.76);
+        color: rgba(246, 251, 255, 0.76);
         font-size: 14px;
         font-weight: 700;
       }
@@ -164,12 +163,12 @@
       .hero {
         position: relative;
         min-height: calc(100svh - 82px);
-        color: #f8fbf2;
+        color: #f6fbff;
         background:
           linear-gradient(90deg, rgba(103, 224, 143, 0.07) 1px, transparent 1px),
           linear-gradient(180deg, rgba(41, 199, 216, 0.06) 1px, transparent 1px),
-          radial-gradient(ellipse at 70% 32%, rgba(41, 199, 216, 0.18), transparent 44%),
-          linear-gradient(135deg, #111713 0%, #18241f 47%, #111713 100%);
+          radial-gradient(ellipse at 70% 32%, rgba(49, 199, 224, 0.18), transparent 44%),
+          linear-gradient(135deg, #0b1117 0%, #121f29 47%, #0b1117 100%);
         background-size: 54px 54px, 54px 54px, auto, auto;
         isolation: isolate;
       }
@@ -180,7 +179,7 @@
         inset: 0;
         z-index: -1;
         background:
-          linear-gradient(90deg, rgba(17, 23, 19, 0.78) 0%, rgba(17, 23, 19, 0.42) 46%, rgba(17, 23, 19, 0.1) 100%),
+          linear-gradient(90deg, rgba(11, 17, 23, 0.78) 0%, rgba(11, 17, 23, 0.42) 46%, rgba(11, 17, 23, 0.1) 100%),
           repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 9px);
         pointer-events: none;
       }
@@ -188,6 +187,8 @@
       .hero-inner {
         position: relative;
         display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(500px, 0.88fr);
+        gap: 24px;
         align-items: center;
         min-height: calc(100svh - 82px);
         max-width: var(--max);
@@ -198,7 +199,8 @@
       .hero-copy-block {
         position: relative;
         z-index: 3;
-        max-width: 690px;
+        max-width: 540px;
+        min-width: 0;
       }
 
       .hero-kicker {
@@ -209,7 +211,7 @@
         margin-bottom: 18px;
         border: 1px solid rgba(103, 224, 143, 0.28);
         border-radius: 999px;
-        background: rgba(248, 251, 242, 0.08);
+        background: rgba(246, 251, 255, 0.08);
         color: #bff9cf;
         padding: 7px 11px;
         font-size: 13px;
@@ -234,17 +236,18 @@
       h1 {
         margin-bottom: 0;
         font-family: "Bricolage Grotesque", "Noto Sans SC", sans-serif;
-        font-size: 72px;
-        line-height: 1;
+        font-size: clamp(42px, 4.4vw, 56px);
+        line-height: 1.1;
         letter-spacing: 0;
       }
 
       .hero-lead {
-        max-width: 610px;
-        margin: 24px 0 0;
-        color: rgba(248, 251, 242, 0.78);
-        font-size: 20px;
-        line-height: 1.9;
+        max-width: 520px;
+        margin: 22px 0 0;
+        color: rgba(246, 251, 255, 0.78);
+        font-size: 18px;
+        line-height: 1.82;
+        overflow-wrap: anywhere;
       }
 
       .hero-actions {
@@ -285,24 +288,24 @@
       }
 
       .btn.secondary {
-        border-color: rgba(248, 251, 242, 0.22);
-        background: rgba(248, 251, 242, 0.08);
-        color: #f8fbf2;
+        border-color: rgba(246, 251, 255, 0.22);
+        background: rgba(246, 251, 255, 0.08);
+        color: #f6fbff;
       }
 
       .hero-metrics {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
-        max-width: 650px;
+        max-width: 540px;
         margin-top: 30px;
       }
 
       .metric {
         min-height: 82px;
-        border: 1px solid rgba(248, 251, 242, 0.12);
+        border: 1px solid rgba(246, 251, 255, 0.12);
         border-radius: var(--radius);
-        background: rgba(248, 251, 242, 0.07);
+        background: rgba(246, 251, 255, 0.07);
         padding: 13px;
       }
 
@@ -316,17 +319,18 @@
       .metric span {
         display: block;
         margin-top: 5px;
-        color: rgba(248, 251, 242, 0.65);
+        color: rgba(246, 251, 255, 0.65);
         font-size: 13px;
         line-height: 1.5;
       }
 
       .hero-art {
-        position: absolute;
+        position: relative;
         z-index: 1;
-        top: 98px;
-        right: -18px;
-        width: 650px;
+        top: auto;
+        right: auto;
+        justify-self: end;
+        width: min(650px, 100%);
         height: 560px;
         pointer-events: none;
       }
@@ -351,10 +355,10 @@
         place-items: center;
         min-width: 86px;
         min-height: 36px;
-        border: 1px solid rgba(248, 251, 242, 0.22);
+        border: 1px solid rgba(246, 251, 255, 0.22);
         border-radius: 999px;
-        background: rgba(17, 23, 19, 0.82);
-        color: #f8fbf2;
+        background: rgba(11, 17, 23, 0.82);
+        color: #f6fbff;
         font-family: "Bricolage Grotesque", "Noto Sans SC", sans-serif;
         font-size: 13px;
         font-weight: 800;
@@ -370,8 +374,8 @@
       .packet.two {
         top: 295px;
         right: 118px;
-        color: #111713;
-        background: var(--amber);
+        color: #f6fbff;
+        background: linear-gradient(135deg, var(--blue), var(--cyan));
         animation-delay: -1.8s;
       }
 
@@ -380,9 +384,9 @@
         top: 0;
         right: 0;
         width: 500px;
-        border: 1px solid rgba(248, 251, 242, 0.16);
+        border: 1px solid rgba(246, 251, 255, 0.16);
         border-radius: var(--radius);
-        background: rgba(247, 250, 242, 0.96);
+        background: rgba(248, 251, 253, 0.96);
         color: var(--ink);
         box-shadow: var(--shadow);
         overflow: hidden;
@@ -392,8 +396,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid #dce4db;
-        background: #f6f8f1;
+        border-bottom: 1px solid #d8e2e8;
+        background: #f7fbff;
         padding: 12px 14px;
       }
 
@@ -406,11 +410,11 @@
         width: 10px;
         height: 10px;
         border-radius: 99px;
-        background: #b7c4b8;
+        background: #aab8c3;
       }
 
       .desktop-label {
-        color: #617069;
+        color: var(--muted);
         font-size: 12px;
         font-weight: 900;
       }
@@ -422,8 +426,8 @@
       }
 
       .demo-sidebar {
-        border-right: 1px solid #dce4db;
-        background: #edf3ea;
+        border-right: 1px solid #d8e2e8;
+        background: #edf4f8;
         padding: 14px;
       }
 
@@ -433,7 +437,7 @@
         gap: 9px;
         border-radius: var(--radius);
         background: var(--deep);
-        color: #f8fbf2;
+        color: #f6fbff;
         padding: 10px;
         font-size: 13px;
         font-weight: 900;
@@ -456,10 +460,10 @@
 
       .demo-muted {
         margin-top: 10px;
-        border: 1px solid #dce4db;
+        border: 1px solid #d8e2e8;
         border-radius: var(--radius);
         background: rgba(255, 255, 255, 0.64);
-        color: #617069;
+        color: var(--muted);
         padding: 9px;
         font-size: 12px;
         font-weight: 800;
@@ -483,7 +487,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        color: #188b43;
+        color: #0e9f6e;
         font-size: 12px;
         font-weight: 900;
       }
@@ -498,21 +502,21 @@
       }
 
       .bubble.left {
-        background: #e7ece5;
-        color: #334238;
+        background: #e8eef3;
+        color: #26343c;
       }
 
       .bubble.right {
         margin-left: auto;
-        background: #d7fff0;
-        color: #104f31;
+        background: #dffcf1;
+        color: #0e5637;
       }
 
       .file-card {
         margin-top: 12px;
-        border: 1px solid #bddfc7;
+        border: 1px solid #b8e9d1;
         border-radius: var(--radius);
-        background: #f5fff7;
+        background: #f7fffb;
         padding: 12px;
       }
 
@@ -528,7 +532,7 @@
         height: 8px;
         margin-top: 12px;
         border-radius: 999px;
-        background: #d5ead8;
+        background: #d7ece6;
         overflow: hidden;
       }
 
@@ -545,7 +549,7 @@
         justify-content: space-between;
         gap: 12px;
         margin-top: 8px;
-        color: #617069;
+        color: var(--muted);
         font-size: 12px;
         font-weight: 800;
       }
@@ -555,9 +559,9 @@
         left: 18px;
         bottom: 0;
         width: 238px;
-        border: 9px solid #101815;
+        border: 9px solid var(--deep);
         border-radius: 30px;
-        background: #101815;
+        background: var(--deep);
         box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
         overflow: hidden;
       }
@@ -575,10 +579,10 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        border: 1px solid rgba(248, 251, 242, 0.16);
+        border: 1px solid rgba(246, 251, 255, 0.16);
         border-radius: var(--radius);
-        background: rgba(16, 24, 21, 0.84);
-        color: #f8fbf2;
+        background: rgba(11, 17, 23, 0.84);
+        color: #f6fbff;
         padding: 11px;
         font-size: 13px;
         font-weight: 900;
@@ -592,13 +596,26 @@
         margin: 0 auto;
         border-right: 1px solid var(--line);
         border-left: 1px solid var(--line);
-        background: rgba(251, 252, 247, 0.86);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(242, 247, 250, 0.76)),
+          rgba(255, 255, 255, 0.82);
       }
 
       .proof-item {
         min-height: 112px;
         border-right: 1px solid var(--line);
         padding: 22px 20px;
+        position: relative;
+      }
+
+      .proof-item::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: 0;
+        width: 34px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--signal), var(--cyan));
       }
 
       .proof-item:last-child {
@@ -634,7 +651,7 @@
 
       .kicker {
         margin-bottom: 10px;
-        color: #11733d;
+        color: #087f8c;
         font-size: 13px;
         font-weight: 900;
         letter-spacing: 0;
@@ -666,16 +683,18 @@
         min-height: 240px;
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(251, 252, 247, 0.9);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 251, 253, 0.78)),
+          #ffffff;
         padding: 22px;
-        box-shadow: 0 18px 48px rgba(17, 23, 19, 0.07);
+        box-shadow: 0 18px 48px rgba(6, 14, 20, 0.07);
         transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
       }
 
       .feature:hover {
         transform: translateY(-3px);
-        border-color: rgba(17, 115, 61, 0.32);
-        box-shadow: 0 22px 58px rgba(17, 23, 19, 0.12);
+        border-color: rgba(49, 199, 224, 0.34);
+        box-shadow: 0 22px 58px rgba(6, 14, 20, 0.12);
       }
 
       .feature-icon {
@@ -684,8 +703,8 @@
         width: 42px;
         height: 42px;
         border-radius: var(--radius);
-        background: #d7fff0;
-        color: #11733d;
+        background: #defcf0;
+        color: #047857;
       }
 
       .feature-icon svg {
@@ -694,13 +713,13 @@
       }
 
       .feature:nth-child(2n) .feature-icon {
-        background: #dcf7ff;
-        color: #0b7280;
+        background: #e3f7ff;
+        color: #0369a1;
       }
 
       .feature:nth-child(3n) .feature-icon {
-        background: #fff0c9;
-        color: #865500;
+        background: #e8efff;
+        color: #3158d4;
       }
 
       .feature h3 {
@@ -716,7 +735,7 @@
 
       .screens-band {
         background: var(--deep);
-        color: #f8fbf2;
+        color: #f6fbff;
       }
 
       .screens-band .section {
@@ -724,11 +743,11 @@
       }
 
       .screens-band .kicker {
-        color: #9ff5ba;
+        color: #89f3ff;
       }
 
       .screens-band .section-lead {
-        color: rgba(248, 251, 242, 0.66);
+        color: rgba(246, 251, 255, 0.68);
       }
 
       .screens {
@@ -741,12 +760,12 @@
       .screen-panel {
         position: relative;
         min-height: 530px;
-        border: 1px solid rgba(248, 251, 242, 0.14);
+        border: 1px solid rgba(246, 251, 255, 0.14);
         border-radius: var(--radius);
         background:
           linear-gradient(90deg, rgba(103, 224, 143, 0.08) 1px, transparent 1px),
           linear-gradient(180deg, rgba(41, 199, 216, 0.06) 1px, transparent 1px),
-          #17231f;
+          var(--deep-2);
         background-size: 42px 42px;
         overflow: hidden;
       }
@@ -780,9 +799,9 @@
         left: 30px;
         bottom: 28px;
         max-width: 320px;
-        border: 1px solid rgba(248, 251, 242, 0.14);
+        border: 1px solid rgba(246, 251, 255, 0.16);
         border-radius: var(--radius);
-        background: rgba(16, 24, 21, 0.82);
+        background: rgba(11, 17, 23, 0.84);
         padding: 20px;
         backdrop-filter: blur(12px);
       }
@@ -796,7 +815,7 @@
       .screen-copy span {
         display: block;
         margin-top: 8px;
-        color: rgba(248, 251, 242, 0.66);
+        color: rgba(246, 251, 255, 0.68);
         font-size: 14px;
         line-height: 1.7;
       }
@@ -807,9 +826,9 @@
       }
 
       .detail {
-        border: 1px solid rgba(248, 251, 242, 0.14);
+        border: 1px solid rgba(246, 251, 255, 0.14);
         border-radius: var(--radius);
-        background: rgba(248, 251, 242, 0.06);
+        background: rgba(246, 251, 255, 0.06);
         padding: 22px;
       }
 
@@ -821,7 +840,7 @@
 
       .detail p {
         margin: 8px 0 0;
-        color: rgba(248, 251, 242, 0.66);
+        color: rgba(246, 251, 255, 0.68);
       }
 
       .flow {
@@ -834,14 +853,16 @@
       .flow-lead {
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: #101815;
-        color: #f8fbf2;
+        background:
+          linear-gradient(135deg, rgba(49, 199, 224, 0.1), transparent 44%),
+          var(--deep);
+        color: #f6fbff;
         padding: 30px;
         box-shadow: var(--shadow);
       }
 
       .flow-lead .kicker {
-        color: #9ff5ba;
+        color: #89f3ff;
       }
 
       .flow-lead h2 {
@@ -853,7 +874,7 @@
 
       .flow-lead p {
         margin-bottom: 0;
-        color: rgba(248, 251, 242, 0.7);
+        color: rgba(246, 251, 255, 0.72);
         font-size: 17px;
         line-height: 1.85;
       }
@@ -870,8 +891,9 @@
         align-items: start;
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(251, 252, 247, 0.9);
+        background: rgba(255, 255, 255, 0.78);
         padding: 18px;
+        box-shadow: 0 12px 32px rgba(6, 14, 20, 0.05);
       }
 
       .step-num {
@@ -880,8 +902,8 @@
         width: 48px;
         height: 48px;
         border-radius: var(--radius);
-        background: #d7fff0;
-        color: #11733d;
+        background: #e3f7ff;
+        color: #0369a1;
         font-family: "Bricolage Grotesque", "Noto Sans SC", sans-serif;
         font-size: 22px;
         font-weight: 900;
@@ -906,9 +928,9 @@
       .download-card {
         border: 1px solid var(--line);
         border-radius: var(--radius);
-        background: rgba(251, 252, 247, 0.92);
+        background: rgba(255, 255, 255, 0.82);
         padding: 24px;
-        box-shadow: 0 18px 48px rgba(17, 23, 19, 0.08);
+        box-shadow: 0 18px 48px rgba(6, 14, 20, 0.08);
       }
 
       .download-card h3 {
@@ -933,14 +955,14 @@
 
       .repo-band {
         margin-top: 16px;
-        border: 1px solid rgba(248, 251, 242, 0.14);
+        border: 1px solid rgba(246, 251, 255, 0.14);
         border-radius: var(--radius);
         background:
           linear-gradient(90deg, rgba(103, 224, 143, 0.12) 1px, transparent 1px),
           linear-gradient(180deg, rgba(41, 199, 216, 0.09) 1px, transparent 1px),
-          #101815;
+          var(--deep);
         background-size: 48px 48px;
-        color: #f8fbf2;
+        color: #f6fbff;
         padding: 30px;
         box-shadow: var(--shadow);
       }
@@ -955,7 +977,7 @@
       .repo-band p {
         max-width: 740px;
         margin-bottom: 22px;
-        color: rgba(248, 251, 242, 0.68);
+        color: rgba(246, 251, 255, 0.7);
       }
 
       .footer {
@@ -977,13 +999,17 @@
       }
 
       @media (max-width: 1100px) {
+        .hero-inner {
+          grid-template-columns: minmax(0, 1fr) minmax(420px, 0.82fr);
+        }
+
         h1 {
-          font-size: 62px;
+          font-size: 50px;
         }
 
         .hero-art {
-          right: -170px;
-          opacity: 0.78;
+          width: 560px;
+          height: 520px;
         }
 
         .feature-grid {
@@ -1005,27 +1031,24 @@
         }
 
         .hero-inner {
+          grid-template-columns: 1fr;
           align-items: start;
           padding-top: 118px;
           padding-bottom: 48px;
         }
 
         h1 {
-          max-width: 620px;
-          font-size: 52px;
+          max-width: 560px;
+          font-size: 44px;
         }
 
         .hero-lead {
-          max-width: 560px;
-          font-size: 18px;
+          max-width: 520px;
+          font-size: 17px;
         }
 
         .hero-art {
-          top: 370px;
-          right: -260px;
-          transform: scale(0.62);
-          transform-origin: top right;
-          opacity: 0.42;
+          display: none;
         }
 
         .hero-metrics,
@@ -1078,12 +1101,12 @@
         }
 
         .hero {
-          min-height: calc(100svh - 62px);
+          min-height: auto;
         }
 
         .hero-inner {
-          min-height: calc(100svh - 62px);
-          padding: 94px 14px 34px;
+          min-height: auto;
+          padding: 94px 14px 64px;
         }
 
         .hero-kicker {
@@ -1091,8 +1114,8 @@
         }
 
         h1 {
-          font-size: 40px;
-          line-height: 1.05;
+          font-size: 32px;
+          line-height: 1.12;
         }
 
         .hero-lead {
@@ -1114,10 +1137,7 @@
         }
 
         .hero-art {
-          top: 350px;
-          right: -372px;
-          transform: scale(0.5);
-          opacity: 0.28;
+          display: none;
         }
 
         .proof-item {
@@ -1196,11 +1216,11 @@
       <nav class="nav" aria-label="主导航">
         <a class="brand" href="#top" aria-label="CipherTransLocal 首页">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
-            <rect width="48" height="48" rx="10" fill="#101815" />
-            <path d="M32 14.5H21.5C16.3 14.5 12 18.8 12 24s4.3 9.5 9.5 9.5H32" fill="none" stroke="#F8FBF2" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M21.5 24H35" fill="none" stroke="#67E08F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M31 20.5 34.5 24 31 27.5" fill="none" stroke="#67E08F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
-            <rect x="1" y="1" width="46" height="46" rx="9" fill="none" stroke="#67E08F" stroke-opacity="0.24" />
+            <rect width="48" height="48" rx="10" fill="#0B1117" />
+            <path d="M32 14.5H21.5C16.3 14.5 12 18.8 12 24s4.3 9.5 9.5 9.5H32" fill="none" stroke="#F6FBFF" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M21.5 24H35" fill="none" stroke="#5EE59A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M31 20.5 34.5 24 31 27.5" fill="none" stroke="#5EE59A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="1" y="1" width="46" height="46" rx="9" fill="none" stroke="#31C7E0" stroke-opacity="0.28" />
           </svg>
           <span>CipherTransLocal</span>
         </a>
@@ -1218,7 +1238,7 @@
           <div class="hero-inner">
             <div class="hero-copy-block">
               <div class="hero-kicker"><span class="live-dot"></span> Windows / Android 局域网直传</div>
-              <h1 id="hero-title">把文件从电脑发到手机，不再绕路。</h1>
+              <h1 id="hero-title">把文件从电脑<br />发到手机，不再绕路。</h1>
               <p class="hero-lead">
                 CipherTransLocal 让 Windows 与 Android 在同一个 Wi-Fi 或局域网内互相发送文字、图片和文件。
                 不需要登录账号，不先上传云端，也不用把私人文件塞进聊天软件中转。
@@ -1278,8 +1298,8 @@
                     <div class="file-card">
                       <div class="file-head">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="#11733D" stroke-width="2" stroke-linejoin="round" />
-                          <path d="M14 3v5h5" stroke="#11733D" stroke-width="2" stroke-linejoin="round" />
+                          <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" stroke="#047857" stroke-width="2" stroke-linejoin="round" />
+                          <path d="M14 3v5h5" stroke="#047857" stroke-width="2" stroke-linejoin="round" />
                         </svg>
                         project-release.zip
                       </div>
